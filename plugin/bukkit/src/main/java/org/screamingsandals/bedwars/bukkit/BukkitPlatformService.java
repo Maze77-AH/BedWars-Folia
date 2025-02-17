@@ -105,7 +105,7 @@ public class BukkitPlatformService extends PlatformService {
                     }
 
                     try {
-                        Bukkit.getScheduler().cancelTasks(plugin);
+                        Bukkit.getAsyncScheduler().cancelTasks(plugin);
                     } catch (Throwable ex) {
                         logger.trace("Error occurred (in the plugin loader) while cancelling tasks for " + plugin.getDescription().getFullName() + " (Is it up to date?)", ex);
                     }
