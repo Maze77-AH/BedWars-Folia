@@ -13,6 +13,10 @@ if (version.toString().endsWith('-SNAPSHOT')) {
 subprojects {
     apply plugin: 'java'
 
+    dependencies {
+        implementation 'dev.folia:folia-api:1.21.4-R0.1-SNAPSHOT'
+    }
+
     if (project.name != 'BedWars-API' && project.name != 'BedWars' && project.name != 'BedWars-protocol') { // upload only BW and BW-API and BW-protocol
         project.ext.disablePublishingToMaven = true
     }
@@ -22,12 +26,15 @@ subprojects {
     repositories {
         mavenLocal()
         mavenCentral()
+        maven { url 'https://repo.papermc.io/repository/maven-public/' }
         maven { url 'https://repo.onarandombox.com/content/groups/public'  }
         maven { url 'https://repo.codemc.org/repository/maven-public/'  }
         maven { url 'https://repo.alessiodp.com/releases/'  }
     }
 
-    sourceCompatibility = '11.0'
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+
 
     compileJava {
         options.encoding = "UTF-8"
