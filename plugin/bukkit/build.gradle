@@ -16,7 +16,61 @@ dependencies {
     }
 }
 
-slib {
-    disableCompilerTricks = true // we have folia in dependencies
+import java.nio.file.Files
+import java.nio.file.StandardOpenOption
+
+task rewritePluginYaml {
+    // Make sure this runs AFTER SLib's annotation processor (compileJava)
+    dependsOn compileJava
+
+    doLast {
+        def pluginYmlPath = file("$buildDir/classes/java/main/plugin.yml")
+        if (!pluginYmlPath.exists()) {
+            throw new GradleException("SLib hasn't generated plugin.yml yet: ${pluginYmlPath}")
+        }
+
+        println "Rewriting SLib-generated plugin.yml at: $pluginYmlPath"
+
+        // Read all lines from the file
+        List<String> lines = pluginYmlPath.readLines()
+        List<String> newLines = new ArrayList<>()
+
+        // We'll add 'folia-supported: true' after 'api-version:' or at the end
+        boolean inserted = false
+        for (String line : lines) {
+            newLines.add(line)
+            if (line.startsWith("api-version:")) {
+                newLines.add("folia-supported: true")
+                inserted = true
+            }
+        }
+
+        // If 'api-version:' wasn't found or you just want to ensure it's at the bottom
+        if (!inserted) {
+            newLines.add("folia-supported: true")
+        }
+
+        // Write the modified content back
+        pluginYmlPath.withWriter('UTF-8') { writer ->
+            writer.write(newLines.join("\n") + "\n")
+        }
+
+    }
 }
+
+tasks.shadowJar {
+    dependsOn rewritePluginYaml
+}
+
+
+// Ensure we do the rewrite before building the final jar
+tasks.jar {
+    dependsOn rewritePluginYaml
+}
+
+slib {
+    disableCompilerTricks = true
+}
+
+
 compileJava.outputs.upToDateWhen {false}
