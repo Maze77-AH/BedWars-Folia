@@ -1,4 +1,4 @@
-# Screaming BedWars
+# Screaming BedWars - Folia
 [![Build and publish BedWars master](https://github.com/ScreamingSandals/BedWars/actions/workflows/build-master.yml/badge.svg)](https://github.com/ScreamingSandals/BedWars/actions/workflows/build-master.yml)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/2b72901b108f4577a135faee054d0d6d)](https://www.codacy.com/gh/ScreamingSandals/BedWars/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ScreamingSandals/BedWars&amp;utm_campaign=Badge_Grade)
 [![Translation status](http://weblate.screamingsandals.org/widgets/bedwars/-/0-3-x/svg-badge.svg)](https://github.com/ScreamingSandals/BedWarsLanguage/tree/0.3.x)
