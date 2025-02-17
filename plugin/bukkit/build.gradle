@@ -10,6 +10,7 @@ dependencies {
 
     /* SHADED */
     implementation libs.bstats
+    implementation 'dev.folia:folia-api:1.21.4-R0.1-SNAPSHOT'
     implementation(libs.commodore) { // brigadier support for Bukkit/Spigot
         exclude group: 'com.mojang', module: 'brigadier'
     }
